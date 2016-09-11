@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  meta(name="viewport",content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui")
+  link(rel="stylesheet",href="css/reset.css")
+  link(rel="stylesheet",href="css/styles.css")
+  title 豆瓣查书
+body
+  header.topbar 豆瓣查书
+  form.searchbar
+    input(type="text",placeholder="输入要搜索的书")#search-input
+    input(type="submit")#search-btn
+    div.clr
+  ul#books
+  h4 Add a book
+  p
+    span name:
+    input#name
+  p
+    span tag:
+    input#tag
+  button#add-book Add!
+  script(src="js/lib/jquery.min.js")
+  script(src="js/main.js")

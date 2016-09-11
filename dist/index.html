@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"/>
+  <link rel="stylesheet" href="css/reset.css"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <title>豆瓣查书</title>
+</head>
+<body>
+  <header class="topbar">豆瓣查书</header>
+  <section class="searchbar">
+    <input type="submit" placeholder="输入要搜索的书" id="search-input"/>
+    <button type="submit" id="search-btn">提交</button>
+    <div class="clr"></div>
+  </section>
+  <ul id="books"></ul>
+  <h4>Add a book</h4>
+  <p><span>name:</span>
+    <input id="name"/>
+  </p>
+  <p><span>tag:</span>
+    <input id="tag"/>
+  </p>
+  <button id="add-book">Add!</button>
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/main.js"></script>
+</body>

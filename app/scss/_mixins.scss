@@ -1,0 +1,129 @@
+// 设置宽高
+@mixin size($width, $height:$width) {
+	width: $width;
+	height: $height;
+ }
+
+// 设置position
+@mixin position($position, $args) {
+	@each $o in top right bottom left {
+		$i: index($args, $o);
+		@if $i and $i + 1 <= length($args) and type-of(nth($args, $i + 1)) == number {
+			#{$o}: nth($args, $i + 1);
+		}
+	}
+	position: $position;
+ }
+
+// 元素水平垂直居中
+@mixin center-translate($direction: both) {
+    position: absolute;
+    @if $direction == both {
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+    }
+    @else if $direction == horizontal {
+        left: 50%;
+        transform: translate3d(-50%, 0, 0);
+    }
+    @else if $direction == vertical {
+        top: 50%;
+        transform: translate3d(0, -50%, 0);
+    }
+ }
+
+// 三角形
+// http://lugolabs.com/caret
+@mixin caret($position,$caret-width,$border-width,$direction,$border-color,$background-color){
+  position: $position;
+
+  &:before,
+  &:after {
+    content:"";
+    position: absolute;
+  }
+  @if $direction == top {
+    &:before {
+      top:0;
+      left: 0;
+      border-bottom: $caret-width solid $border-color;
+      border-left: $caret-width solid transparent;
+      border-right: $caret-width solid transparent;
+    }
+    &:after {
+      left: $border-width;
+      top: $border-width;
+      border-bottom: ($caret-width - $border-width) solid $background-color;
+      border-left: ($caret-width - $border-width) solid transparent;
+      border-right: ($caret-width - $border-width) solid transparent;
+    }
+  }
+  @else if $direction == right {
+    &:before {
+      top:0;
+      left: 0;
+      border-left: $caret-width solid $border-color;
+      border-top: $caret-width solid transparent;
+      border-bottom: $caret-width solid transparent;
+    }
+    &:after {
+      left: 0;
+      top: $border-width;
+      border-left: ($caret-width - $border-width) solid $background-color;
+      border-top: ($caret-width - $border-width) solid transparent;
+      border-bottom: ($caret-width - $border-width) solid transparent;
+    }
+  }
+  @else if $direction == bottom {
+    &:before {
+      top:0;
+      left: 0;
+      border-top: $caret-width solid $border-color;
+      border-left: $caret-width solid transparent;
+      border-right: $caret-width solid transparent;
+    }
+    &:after {
+      left: $border-width;
+      top: 0;
+      border-top: ($caret-width - $border-width) solid $background-color;
+      border-left: ($caret-width - $border-width) solid transparent;
+      border-right: ($caret-width - $border-width) solid transparent;
+    }
+  }
+  @else if $direction == left {
+    &:before {
+      top:0;
+      left: 0;
+      border-right: $caret-width solid $border-color;
+      border-top: $caret-width solid transparent;
+      border-bottom: $caret-width solid transparent;
+    }
+    &:after {
+      left: $border-width;
+      top: $border-width;
+      border-right: ($caret-width - $border-width) solid $background-color;
+      border-top: ($caret-width - $border-width) solid transparent;
+      border-bottom: ($caret-width - $border-width) solid transparent;
+    }
+  }
+}
+
+
+// 按钮大小
+@mixin button-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
+	padding: $padding-vertical $padding-horizontal;
+	line-height: $line-height;
+	border-radius: $border-radius;
+ }
+
+// 控制文字行数溢出点点点
+ @mixin box-clamp($lines: 1) {
+     overflow:hidden;
+     display:-webkit-box;
+     display:box;
+     -webkit-line-clamp: $lines;
+     line-clamp: $lines;
+     -webkit-box-orient: vertical;
+     box-orient: vertical;
+  }
