@@ -63,14 +63,18 @@ a {
   & .book {
     text-align: center;
     margin-bottom: 1rem;
+    @include size(150px, auto);
 
-    & .book-title, & .book-publisher {
+
+    & .book-title, & .book-author, & .book-publisher {
       line-height: 1.5rem;
+      word-wrap: break-word;
+      word-break: normal;
     }
     & .book-title {
       color: $font-green;
     }
-    & .book-publisher {
+    & .book-author, & .book-publisher {
       color: #aaa;
       font-size: .5em;
     }
