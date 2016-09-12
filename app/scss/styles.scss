@@ -80,3 +80,15 @@ a {
     }
   }
 }
+
+#pages {
+  & .page {
+    margin: 0 1rem;
+    color: $font-green;
+    text-decoration: underline;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

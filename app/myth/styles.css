@@ -61,3 +61,10 @@ a {
     #books .book .book-author, #books .book .book-publisher {
       color: #aaa;
       font-size: .5em; }
+
+#pages .page {
+  margin: 0 1rem;
+  color: #2e963d;
+  text-decoration: underline; }
+  #pages .page:hover {
+    cursor: pointer; }
