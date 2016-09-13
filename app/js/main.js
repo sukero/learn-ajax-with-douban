@@ -6,26 +6,16 @@ $(() => {
   let searchVal = '';
 
   // showCurrPageResults: 根据页码显示当页结果
-  function showCurrPageResults(currArr, wholeArr, pager = 1, currSize) {
+  function showCurrPageResults(wholeArr, pager, currSize) {
+
     if (pager === 1) {
       let currArr = wholeArr.slice(0, currSize);
-      console.log(currArr);
-    } else {
-      let currArr = wholeArr.slice((pager-1)*currSize, currSize);
-      console.log(currArr);
+      return currArr;
+    } else if (pager > 1) {
+      let currArr = wholeArr.slice((pager-1)*currSize, pager*currSize);
+      return currArr;
     }
 
-    for (let bookInfo of currArr) {
-      $booksElem.append(
-        `<li class="book">
-          <a href="${bookInfo.alt}">
-            <img class="book-image" src="${bookInfo.image}">
-            <p class="book-title">${bookInfo.title}</p>
-            <p class="book-author">${bookInfo.author}</p>
-            <p class="book-publisher">${bookInfo.publisher}</p>
-          </a>
-        </li>`);
-      }
   }
 
   // 载入数据
@@ -49,10 +39,8 @@ $(() => {
 
               let bookInfoArr = data.books;
 
-              // 分页
-              let pageSize = 4,
-                  pageCurr = 1,
-                  currBookArr = bookInfoArr;
+              // 每页要显示的结果数量
+              let pageSize = 8;
 
               // 显示页码
               for (let i=1; i<(bookInfoArr.length/pageSize); i++) {
@@ -61,18 +49,47 @@ $(() => {
                 );
               }
 
+              // 提交搜索后，先渲染出第一页的结果
+              let firstPageResults = bookInfoArr.slice(0, pageSize);
+              for (let bookInfo of firstPageResults) {
+                $booksElem.append(
+                  `<li class="book">
+                    <a href="${bookInfo.alt}">
+                      <img class="book-image" src="${bookInfo.image}">
+                      <p class="book-title">${bookInfo.title}</p>
+                      <p class="book-author">${bookInfo.author}</p>
+                      <p class="book-publisher">${bookInfo.publisher}</p>
+                    </a>
+                  </li>`);
+                }
+
+
               $('.page').on('click', (e) => {
-                // 每次点击前，将pageCurr值改回默认值1
-                pageCurr = 1;
 
-                // 点击页码改变pageCurr的值
+                // 当前页的页码
+                let pageCurr = 1;
+
+                // 点击任意页码，将这个页码设为pageCurr的值
                 pageCurr = pageCurr * $(e.target).text();
-                console.log(pageCurr);
 
-                // 清空搜索结果
+                // 清空当前页显示的搜索结果
                 $booksElem.html('');
 
-                showCurrPageResults(currBookArr, bookInfoArr, pageCurr, pageSize);
+                // 返回当前页应该显示的结果数组
+                let currBookArr = showCurrPageResults(bookInfoArr, pageCurr, pageSize);
+
+                // 渲染当前页结果
+                for (let bookInfo of currBookArr) {
+                  $booksElem.append(
+                    `<li class="book">
+                      <a href="${bookInfo.alt}">
+                        <img class="book-image" src="${bookInfo.image}">
+                        <p class="book-title">${bookInfo.title}</p>
+                        <p class="book-author">${bookInfo.author}</p>
+                        <p class="book-publisher">${bookInfo.publisher}</p>
+                      </a>
+                    </li>`);
+                  }
 
               });
 
@@ -80,7 +97,4 @@ $(() => {
 
           });
       });
-
-
-
 });
