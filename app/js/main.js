@@ -23,6 +23,11 @@ $(() => {
       $('form').submit((e) => {
         e.preventDefault();
 
+        // Error Handling
+        let doubanRequestTimeout = setTimeout(() => {
+          $booksElem.text("failed to get douban resources");
+        }, 2000);
+
         // 清空搜索结果和分页结果
         $booksElem.html('');
         $pagesElem.html('');
@@ -33,7 +38,7 @@ $(() => {
 
         $.ajax({
         		type: 'GET',
-        		url: `https://api.douban.com/v2/book/search?q=${searchVal}&count=100`,
+        		url: `https://api.douban.com/v2/look/search?q=${searchVal}&count=100`,
         		dataType: 'jsonp',
             success(data) {
 
@@ -92,6 +97,8 @@ $(() => {
                   }
 
               });
+
+              clearTimeout(doubanRequestTimeout);
 
             }
 
