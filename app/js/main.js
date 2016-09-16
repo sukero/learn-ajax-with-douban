@@ -38,7 +38,7 @@ $(() => {
 
         $.ajax({
         		type: 'GET',
-        		url: `https://api.douban.com/v2/look/search?q=${searchVal}&count=100`,
+        		url: `https://api.douban.com/v2/book/search?q=${searchVal}&count=100`,
         		dataType: 'jsonp',
             success(data) {
 
