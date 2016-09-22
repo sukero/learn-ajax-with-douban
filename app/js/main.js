@@ -1,4 +1,5 @@
 $(() => {
+
   let $booksElem = $('#books'),
       $pagesElem = $('#pages'),
       $searchInput = $('#search-input');
@@ -26,7 +27,7 @@ $(() => {
         // Error Handling
         let doubanRequestTimeout = setTimeout(() => {
           $booksElem.text("failed to get douban resources");
-        }, 2000);
+        }, 8000);
 
         // 清空搜索结果和分页结果
         $booksElem.html('');
