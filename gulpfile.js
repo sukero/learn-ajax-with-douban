@@ -8,40 +8,20 @@ var gutil = require('gulp-util');
 var gulpIf = require('gulp-if');
 var uglify = require('gulp-uglify');
 var minifyCSS = require('gulp-minify-css');
-// var autoprefixer = require('gulp-autoprefixer');
 var gulp_concat = require('gulp-concat');
 var imagemin = require('gulp-imagemin');
 var cache = require('gulp-cache');
 var ghPages = require('gulp-gh-pages');
-var myth = require('gulp-myth');
 
 
 gulp.task('sass', function() {
   return gulp.src('app/scss/**/*.scss') // Gets all files ending with .scss in app/scss
     .pipe(sass())
-    .pipe(gulp.dest('app/myth'))
-    .pipe(browserSync.reload({
-      stream: true
-    }))
-});
-
-gulp.task('myth', function() {
-  return gulp.src('app/myth/**/*.css') // Gets all files ending with .scss in app/scss
-    .pipe(myth())
     .pipe(gulp.dest('app/css'))
     .pipe(browserSync.reload({
       stream: true
     }))
 });
-
-// gulp.task('autoprefixer', function () {
-// 	return gulp.src('app/css/**/*.css')
-// 		.pipe(autoprefixer({
-// 			browsers: ['last 2 versions'],
-// 			cascade: false
-// 		}))
-// 		.pipe(gulp.dest('dist/css'));
-// });
 
 gulp.task('browserSync', function() {
   browserSync({
@@ -59,7 +39,7 @@ gulp.task('js', function() {
 })
 
 gulp.task('jade', function () {
-  return gulp.src('app/jade/*.jade')
+  return gulp.src('app/jade/**/*.jade')
   .pipe(jade({
       pretty: true
     }))
@@ -97,8 +77,7 @@ gulp.task('deploy', function() {
     .pipe(ghPages());
 });
 
-gulp.task('serve', ['browserSync', 'images', 'useref', 'myth', 'sass', 'js', 'jade', 'html'], function (){
-  gulp.watch('app/myth/**/*.css', ['myth']);
+gulp.task('serve', ['browserSync', 'images', 'useref', 'sass', 'js', 'jade', 'html'], function (){
   gulp.watch('app/scss/**/*.scss', ['sass']);
   gulp.watch('app/js/*.js', ['js']);
   gulp.watch('app/jade/**/*.jade', ['jade'])
